@@ -1,4 +1,4 @@
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
 const s3 = new S3Client({
   region: process.env.AWS_REGION,
@@ -8,16 +8,13 @@ const s3 = new S3Client({
   },
 });
 
-export async function uploadFile(
-  key: string,
-  body: Buffer | Uint8Array | Blob | string,
-) {
+export async function uploadFile(key: string, body: Buffer | Uint8Array | Blob | string) {
   await s3.send(
     new PutObjectCommand({
       Bucket: process.env.BUCKET_NAME!,
       Key: key,
       Body: body,
-    }),
+    })
   );
   return `https://${process.env.BUCKET_NAME}.s3.amazonaws.com/${key}`;
 }

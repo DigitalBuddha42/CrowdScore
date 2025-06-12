@@ -22,4 +22,4 @@ export function ThemeAwareToast() {
       theme={isDark ? 'dark' : 'light'}
     />
   );
-} 
+}

@@ -45,8 +45,8 @@
  * - GEMINI_FLASH_THINKING: For complex reasoning tasks
  */
 
-import OpenAI from "openai";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import OpenAI from 'openai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Custom type for Gemini API request
 interface GeminiGroundedResponse {
@@ -64,14 +64,14 @@ type AIClientResponse = {
 };
 
 export const AI_MODELS = {
-  SONNET: "claude-3-5-sonnet-20241022",
-  O1: "o1-2024-12-17",
-  GPT_4O: "gpt-4o",
-  GPT_4O_MINI: "gpt-4o-mini",
-  PERPLEXITY_SMALL: "sonar",
-  PERPLEXITY_LARGE: "sonar-pro",
-  GEMINI_FLASH_WEB: "gemini-2.0-flash-exp",
-  GEMINI_FLASH_THINKING: "gemini-2.0-flash-thinking-exp-01-21",
+  SONNET: 'claude-3-5-sonnet-20241022',
+  O1: 'o1-2024-12-17',
+  GPT_4O: 'gpt-4o',
+  GPT_4O_MINI: 'gpt-4o-mini',
+  PERPLEXITY_SMALL: 'sonar',
+  PERPLEXITY_LARGE: 'sonar-pro',
+  GEMINI_FLASH_WEB: 'gemini-2.0-flash-exp',
+  GEMINI_FLASH_THINKING: 'gemini-2.0-flash-thinking-exp-01-21',
 } as const;
 
 export type AIModel = keyof typeof AI_MODELS;
@@ -82,19 +82,19 @@ const openai = new OpenAI({
 
 const perplexity = new OpenAI({
   apiKey: process.env.PERPLEXITY_API_KEY,
-  baseURL: "https://api.perplexity.ai",
+  baseURL: 'https://api.perplexity.ai',
 });
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 function getClientForModel(model: AIModel): AIClientResponse {
   const modelId = AI_MODELS[model];
 
-  if (modelId.includes("sonar")) {
-    return { client: perplexity, type: "openai" };
+  if (modelId.includes('sonar')) {
+    return { client: perplexity, type: 'openai' };
   }
 
-  return { client: openai, type: "openai" };
+  return { client: openai, type: 'openai' };
 }
 
 /**
@@ -105,32 +105,27 @@ function getClientForModel(model: AIModel): AIClientResponse {
  * @returns Promise with text response and optional source links
  */
 export async function generateGeminiWebResponse(
-  messages: Array<{ role: "user" | "system" | "assistant"; content: string }>,
-  model: AIModel = "GEMINI_FLASH_WEB",
-  ground = true,
+  messages: Array<{ role: 'user' | 'system' | 'assistant'; content: string }>,
+  model: AIModel = 'GEMINI_FLASH_WEB',
+  ground = true
 ): Promise<GeminiGroundedResponse> {
   const modelId = AI_MODELS[model];
   const geminiModel = genAI.getGenerativeModel({
     model: modelId,
-    // @ts-ignore
+    // @ts-expect-error: Google Generative AI types are not available for tools property
     tools: ground ? [{ googleSearch: {} }] : undefined,
   });
 
   // Convert messages to Gemini format
-  const prompt = messages.map((m) => m.content).join("\n");
+  const prompt = messages.map((m) => m.content).join('\n');
 
   const result = await geminiModel.generateContent(prompt);
   const response = await result.response;
   const text = response.text();
 
   let sourceLink: string | undefined = undefined;
-  if (
-    ground &&
-    response.candidates?.[0]?.groundingMetadata?.searchEntryPoint
-      ?.renderedContent
-  ) {
-    sourceLink =
-      response.candidates[0].groundingMetadata.searchEntryPoint.renderedContent;
+  if (ground && response.candidates?.[0]?.groundingMetadata?.searchEntryPoint?.renderedContent) {
+    sourceLink = response.candidates[0].groundingMetadata.searchEntryPoint.renderedContent;
   }
 
   return {
@@ -139,11 +134,11 @@ export async function generateGeminiWebResponse(
   };
 }
 
-export function parseJsonResponse(response: string): any {
+export function parseJsonResponse(response: string): unknown {
   // First try parsing the response directly
   try {
     return JSON.parse(response);
-  } catch (e) {
+  } catch {
     // If direct parsing fails, look for code blocks
     const codeBlockRegex = /```(?:json|[^\n]*\n)?([\s\S]*?)```/;
     const match = response.match(codeBlockRegex);
@@ -151,30 +146,26 @@ export function parseJsonResponse(response: string): any {
     if (match && match[1]) {
       try {
         return JSON.parse(match[1].trim());
-      } catch (innerError) {
-        throw new Error("Failed to parse JSON from code block");
+      } catch {
+        throw new Error('Failed to parse JSON from code block');
       }
     }
 
-    throw new Error("No valid JSON found in response");
+    throw new Error('No valid JSON found in response');
   }
 }
 
 export async function generateChatCompletion(
-  messages: Array<{ role: "user" | "system" | "assistant"; content: string }>,
-  model: AIModel = "O1",
-  additionalOptions: Partial<OpenAI.ChatCompletionCreateParamsNonStreaming> = {},
+  messages: Array<{ role: 'user' | 'system' | 'assistant'; content: string }>,
+  model: AIModel = 'O1',
+  additionalOptions: Partial<OpenAI.ChatCompletionCreateParamsNonStreaming> = {}
 ): Promise<string> {
   try {
     const modelId = AI_MODELS[model];
 
     // Handle Gemini models directly
-    if (modelId.includes("gemini")) {
-      const geminiResp = await generateGeminiWebResponse(
-        messages,
-        model,
-        false,
-      );
+    if (modelId.includes('gemini')) {
+      const geminiResp = await generateGeminiWebResponse(messages, model, false);
       return geminiResp.text;
     }
 
@@ -187,12 +178,9 @@ export async function generateChatCompletion(
     };
 
     const completion = await client.chat.completions.create(options);
-    return completion.choices[0]?.message?.content ?? "";
+    return completion.choices[0]?.message?.content ?? '';
   } catch (error) {
-    console.error(
-      `Error generating chat completion for model ${model}:`,
-      error,
-    );
+    console.error(`Error generating chat completion for model ${model}:`, error);
     throw error;
   }
 }

@@ -64,4 +64,4 @@ export const Link: Story = {
     children: 'Link',
     variant: 'link',
   },
-}; 
+};

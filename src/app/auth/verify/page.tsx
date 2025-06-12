@@ -14,12 +14,10 @@ export default function Verify() {
             Verify your email
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-            {token
-              ? 'Please wait while we verify your email...'
-              : 'No verification token provided'}
+            {token ? 'Please wait while we verify your email...' : 'No verification token provided'}
           </p>
         </div>
       </div>
     </div>
   );
-} 
+}

@@ -22,6 +22,8 @@ model User {
   isAdmin        Boolean   @default(false)
   accounts       Account[]
   sessions       Session[]
+  scorecards     Scorecard[]
+  profile        UserProfile?
 }
 
 model Account {
@@ -68,4 +70,72 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Fight {
+  id          String    @id @default(cuid())
+  eventName   String
+  fighter1    String
+  fighter2    String
+  weightClass String
+  rounds      Int       @default(3)
+  status      FightStatus @default(upcoming)
+  startTime   DateTime?
+  endTime     DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  scorecards  Scorecard[]
+  judgeScores JudgeScore[]
+}
+
+model Scorecard {
+  id        String   @id @default(cuid())
+  userId    String
+  fightId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  rounds    Round[]
+  user      User     @relation(fields: [userId], references: [id])
+  fight     Fight    @relation(fields: [fightId], references: [id])
+}
+
+model Round {
+  id          String   @id @default(cuid())
+  scorecardId String
+  roundNumber Int
+  fighter1Score Int
+  fighter2Score Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  scorecard   Scorecard @relation(fields: [scorecardId], references: [id])
+}
+
+model JudgeScore {
+  id          String   @id @default(cuid())
+  fightId     String
+  judgeName   String
+  roundNumber Int
+  fighter1Score Int
+  fighter2Score Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  fight       Fight    @relation(fields: [fightId], references: [id])
+}
+
+model UserProfile {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  bio           String?
+  location      String?
+  favoriteWeightClass String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          User     @relation(fields: [userId], references: [id])
+}
+
+enum FightStatus {
+  upcoming
+  live
+  completed
+  cancelled
 }

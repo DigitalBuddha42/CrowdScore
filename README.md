@@ -1,7 +1,5 @@
 # A Note from Pat
 
-
-
 ## ✨ Features
 
 ### 🏗️ Core Architecture

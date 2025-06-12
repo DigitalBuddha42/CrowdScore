@@ -1,10 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
 
 export function useExampleQuery() {
   return useQuery({
-    queryKey: ["example"],
+    queryKey: ['example'],
     queryFn: async () => {
-      return { data: "Hello from React Query" };
+      return { data: 'Hello from React Query' };
     },
   });
 }

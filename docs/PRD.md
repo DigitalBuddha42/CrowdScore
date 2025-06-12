@@ -222,12 +222,13 @@ Feature: Share scorecard
 
 ## 9. Definition of Done (DoD)
 
-- ✅ Feature meets all related user stories  
-- ✅ Code is peer reviewed and approved via pull request  
-- ✅ Unit tests written with coverage over 80%  
-- ✅ Acceptance criteria fully met per Gherkin specs  
-- ✅ Live on staging environment (e.g. `staging.fightscore.io`)  
-- ✅ Redis and Supabase services tested and healthy  
-- ✅ No console errors or major UI bugs  
-- ✅ PWA audit score ≥ 90 (Lighthouse)  
+- ✅ Feature meets all related user stories
+- ✅ Code is peer reviewed and approved via pull request
+- ✅ Unit tests written with coverage over 80%
+- ✅ Acceptance criteria fully met per Gherkin specs
+- ✅ Live on staging environment (e.g. `staging.fightscore.io`)
+- ✅ Redis and Supabase services tested and healthy
+- ✅ No console errors or major UI bugs
+- ✅ PWA audit score ≥ 90 (Lighthouse)
 - ✅ Documentation updated (README, API routes, schema)
+```

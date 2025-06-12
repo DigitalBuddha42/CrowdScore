@@ -1,10 +1,10 @@
-import "server-only";
+import 'server-only';
 
-import { headers } from "next/headers";
-import { cache } from "react";
+import { headers } from 'next/headers';
+import { cache } from 'react';
 
-import { createCaller } from "@/lib/api/root";
-import { createTRPCContext } from "@/lib/api/trpc";
+import { createCaller } from '@/lib/api/root';
+import { createTRPCContext } from '@/lib/api/trpc';
 
 /**
  * This wraps the `createTRPCContext` helper and provides the required context for the tRPC API when
@@ -12,7 +12,7 @@ import { createTRPCContext } from "@/lib/api/trpc";
  */
 const createContext = cache(async () => {
   const heads = new Headers(await headers());
-  heads.set("x-trpc-source", "rsc");
+  heads.set('x-trpc-source', 'rsc');
 
   return createTRPCContext({
     headers: heads,

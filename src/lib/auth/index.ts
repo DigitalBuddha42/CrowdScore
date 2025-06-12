@@ -1,15 +1,11 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { prisma } from "@/lib/db";
-import {
-  getServerSession,
-  type NextAuthOptions,
-  type DefaultSession,
-} from "next-auth";
-import EmailProvider from "next-auth/providers/email";
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { prisma } from '@/lib/db';
+import { getServerSession, type NextAuthOptions, type DefaultSession } from 'next-auth';
+import EmailProvider from 'next-auth/providers/email';
 
 export enum UserRole {
-  user = "user",
-  admin = "admin",
+  user = 'user',
+  admin = 'admin',
 }
 
 /**
@@ -18,7 +14,7 @@ export enum UserRole {
  *
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  */
-declare module "next-auth/adapters" {
+declare module 'next-auth/adapters' {
   interface AdapterUser {
     login?: string;
     role?: UserRole;
@@ -27,7 +23,7 @@ declare module "next-auth/adapters" {
   }
 }
 
-declare module "next-auth" {
+declare module 'next-auth' {
   interface Session extends DefaultSession {
     user: {
       id: string;
@@ -62,18 +58,18 @@ export const authOptions: NextAuthOptions = {
   providers: [
     EmailProvider({
       server: {
-        host: "smtp.resend.com",
+        host: 'smtp.resend.com',
         port: 465,
         auth: {
-          user: "resend",
+          user: 'resend',
           pass: process.env.EMAIL_SERVER_PASSWORD,
         },
       },
-      from: process.env.EMAIL_FROM || "onboarding@resend.dev",
+      from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
     }),
   ],
   session: {
-    strategy: "database",
+    strategy: 'database',
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
@@ -98,7 +94,7 @@ export const authOptions: NextAuthOptions = {
 
         return true;
       } catch (error) {
-        console.error("SignIn callback error:", error);
+        console.error('SignIn callback error:', error);
         return false;
       }
     },
@@ -115,16 +111,16 @@ export const authOptions: NextAuthOptions = {
           },
         };
       } catch (error) {
-        console.error("Session callback error:", error);
+        console.error('Session callback error:', error);
         return session;
       }
     },
   },
   pages: {
-    signIn: "/auth/signin",
-    signOut: "/auth/signout",
-    error: "/auth/error",
-    verifyRequest: "/auth/verify",
+    signIn: '/auth/signin',
+    signOut: '/auth/signout',
+    error: '/auth/error',
+    verifyRequest: '/auth/verify',
   },
 };
 

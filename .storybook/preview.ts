@@ -1,9 +1,9 @@
-import type { Preview } from "@storybook/react";
-import "../src/app/globals.css"; // Import your Tailwind CSS file
+import type { Preview } from '@storybook/react';
+import '../src/app/globals.css'; // Import your Tailwind CSS file
 
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
+    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -11,15 +11,15 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: "light",
+      default: 'light',
       values: [
         {
-          name: "light",
-          value: "#ffffff",
+          name: 'light',
+          value: '#ffffff',
         },
         {
-          name: "dark",
-          value: "#1a1a1a",
+          name: 'dark',
+          value: '#1a1a1a',
         },
       ],
     },
