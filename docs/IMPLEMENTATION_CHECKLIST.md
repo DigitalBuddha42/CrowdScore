@@ -30,16 +30,16 @@
 
 ### Authentication
 
-- [ ] Set up NextAuth.js with Prisma adapter
-- [ ] Configure Google OAuth provider
-- [ ] Implement email/password authentication
-- [ ] Create auth API routes
-- [ ] Set up protected API routes
-- [ ] Implement session management
-- [ ] Create auth middleware
-- [ ] Set up password reset flow
-- [ ] Implement email verification
-- [ ] Create auth hooks and context
+- [x] Set up NextAuth.js with Prisma adapter
+- [x] Configure Google OAuth provider
+- [x] Implement email/password authentication
+- [x] Create auth API routes
+- [x] Set up protected API routes
+- [x] Implement session management
+- [x] Create auth middleware
+- [x] Set up password reset flow
+- [x] Implement email verification
+- [x] Create auth hooks and context
 
 ### Real-time Infrastructure
 
