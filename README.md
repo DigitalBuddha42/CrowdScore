@@ -1,24 +1,6 @@
-# A Note from Kevin
+# A Note from Pat
 
-Hi! If you're at this repo, you've probably seen one of my AI coding videos and want to try some of those techniques yourself. If you have no clue what I'm talking about, here's a good video to show you my approach and how to best use this repo: https://youtu.be/gXmakVsIbF0
 
-You can also just use this with your own techniques, that's cool too. 
-
-You can follow the Getting Started instructions below to start using this stack right away. I've found that using a checklist of tasks in the .cursor-tasks.md file is a great way to make a lot of quick and effective progress with AI Coding. I personally use Cursor in Composer Agent mode with Sonnet 3.7, but feel free to use your AI coding tool of choice.
-
-If you need to create the checklist, here are some good prompts to use to go from a high-level idea to a full checklist of stories and tasks: https://chatgpt.com/share/67be0a59-e484-800d-a078-346b2c29d727
-
-You can also use the template in .cursor-template.xml to generate the task list for existing repos. I personally use RepoPrompt to convert the files into a pastable string, but repomix.com is a good option as well. 
-
-# 🚀 Next.js Modern Stack Template
-
-A Next.js template that combines commonly used tools and libraries for building full-stack web applications. This stack is specifically designed to be optimized for AI coding assistants like Cursor.
-
-## 🎯 Overview
-
-This template includes [Next.js 14](https://nextjs.org/) with the App Router, [Supabase](https://supabase.com) for the database, [Resend](https://resend.com) for transactional emails, and optional integrations with various AI providers and AWS services.
-
-> ⚠️ **Note**: This is my personal template with tools that I personally have experience with and think are solid options for building modern full-stack web application. Your preferences very likely differ, so feel free to fork and modify it for your own use. I won't be accepting pull requests for additional features, but I'll be happy to help you out if you have any questions.
 
 ## ✨ Features
 
@@ -30,6 +12,7 @@ This template includes [Next.js 14](https://nextjs.org/) with the App Router, [S
 - [**Prisma**](https://www.prisma.io/) - Database ORM and schema management
 - [**NextAuth.js**](https://next-auth.js.org/) - Authentication with Prisma adapter
 - [**Supabase**](https://supabase.com) - Postgres database with realtime and auth
+- [**Redis**](https://redis.io) - In-memory database for realtime event updates
 
 ### 🎨 UI & Styling
 
