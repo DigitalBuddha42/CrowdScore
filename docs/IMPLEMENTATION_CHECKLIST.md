@@ -303,3 +303,16 @@
 - [ ] Implement version control
 - [ ] Set up documentation updates
 - [ ] Create support system
+
+## API Routes & tRPC
+
+- [x] Set up tRPC router and procedures
+- [x] Create public and protected procedures
+- [x] Implement fight-related API routes
+- [x] Implement scorecard-related API routes
+- [x] Add input validation with Zod
+- [x] Set up error handling
+- [x] Add rate limiting
+- [x] Implement API documentation
+- [x] Add request logging
+- [x] Set up API testing

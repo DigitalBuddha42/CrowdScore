@@ -9,3 +9,4 @@
 - Set up PostgreSQL, created the crowdscore database, ran Prisma migrations, and seeded initial data for users, fights, and scorecards.
 - Marked all Database & ORM tasks as complete, fixed lint/type errors, and ensured build passes up to unrelated Next.js suspense warning.
 - Completed Authentication checklist: added Google OAuth, password reset flow, protected routes, auth middleware, and hooks; fixed all lint and formatting issues.
+- Refactored fighters router to match schema, fixed all tRPC and API router lint/type/build errors, and ensured project builds successfully except for unrelated suspense warning.
